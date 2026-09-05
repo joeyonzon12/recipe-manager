@@ -3,13 +3,28 @@ import { useState } from "react";
 const CATEGORIES = ["Breakfast", "Lunch", "Dinner", "Dessert"];
 
 export default function RecipeForm({ onAdd }) {
-  // TODO: create controlled state for title, category, and time.
+  // TODO: create controlled state for title, category, and time.\
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [time, setTime] = useState ("");
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // TODO: reject if title is empty (after .trim()).
     // TODO: call onAdd({ title, category, time: Number(time) || 0 }).
     // TODO: clear the form fields.
+    if (!title.trim()) {
+      return;
+    }
+    onAdd({
+      title: title.trim(),
+      category,
+      time: Number(time) || 0,
+    });
+    setTitle("");
+    setCategory("");
+    setTime("");
   };
 
   return (
@@ -19,7 +34,7 @@ export default function RecipeForm({ onAdd }) {
     >
       {/* TODO: title input (text) — must be controlled */}
       <input
-        type="text"
+        type="title"
         placeholder="Recipe title"
         className="input input-bordered md:col-span-2"
       />
@@ -31,7 +46,7 @@ export default function RecipeForm({ onAdd }) {
 
       {/* TODO: time input (number) — must be controlled */}
       <input
-        type="number"
+        type="time"
         placeholder="Time (min)"
         min="0"
         className="input input-bordered"
